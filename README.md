@@ -1,1 +1,1 @@
-enterpriseLinux_imagebuild
+# Linux Template Image Overview

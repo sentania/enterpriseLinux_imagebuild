@@ -1,0 +1,10 @@
+---
+# This playbook installs lab Root Certificates to allow trusted access to lab resources
+#
+- name: Copy the root cert chain to the anchors directory
+  copy: src={{ item }} dest=/etc/pki/ca-trust/source/anchors/
+  with_items:
+    - "sentaniaRoot.crt"
+
+- name: Update the certicate trust
+  command: /usr/bin/update-ca-trust

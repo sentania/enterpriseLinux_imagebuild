@@ -1,0 +1,15 @@
+{
+    "os_version": "7.4",
+    "image_build_version": "0.2",
+    "satellite_server_fqdn":"foreman.int.sentania.net",
+    "satellite_org":"HomeLab",
+    "satellite_activation_key_centos":"CentOS 7",
+    "satellite_activation_key_rhel":"sentania-lab-rhel-7",
+    "packer_ssh_username":"labansible",
+    "packer_ssh_password":"labansible",
+    "rhel_nexus_url":"https://nexus.int.sentania.net/repository/labRepo/lab/isos/Linux/rhel/7/rhel-server-7.4-x86_64-dvd.iso",
+    "rhel_iso_checksum":"431a58c8c0351803a608ffa56948c5a7861876f78ccbe784724dd8c987ff7000",
+    "centos_iso":"CentOS-7-x86_64-Everything-1708.iso",
+    "centos_iso_checksum":"8593f5a1631ebfb7581193a7b4ef96d44f500d3ceb49cc4cfbfd71d5698e4173",
+    "centos_nexus_url": "https://nexus.int.sentania.net/repository/labRepo/lab/isos/Linux/CentOS/7/CentOS-7-x86_64-Everything-1708.iso"
+}

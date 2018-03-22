@@ -1,0 +1,142 @@
+{
+  "variables": {
+    "os_version": "NOTSET",
+    "headless_setting": "true",
+    "image_build_version": "NOTSET",
+    "satellite_server_fqdn": "NOTSET",
+    "satellite_org":"NOTSET",
+    "satellite_activation_key_centos":"NOTSET",
+    "satellite_activation_key_rhel":"NOTSET",
+    "packer_ssh_username":"NOTSET",
+    "packer_ssh_password":"NOTSET",
+    "rhel_iso":"",
+    "rhel_iso_checksum":"none",
+    "rhel_iso_checksum_type":"sha256",
+    "centos_iso":"",
+    "centos_iso_checksum":"none",
+    "centos_iso_checksum_type":"sha256",
+    "output_directory": "{{env `IMAGE_OUTPUT_DIR`}}"
+  },
+
+  "builders": [
+    {
+      "type": "vmware-iso",
+      "name": "RHEL",
+      "headless": "{{user `headless_setting`}}",
+      "iso_checksum": "{{ user `rhel_iso_checksum`}}",
+      "iso_checksum_type": "{{ user `rhel_iso_checksum_type`}}",
+      "iso_url": "{{ user `rhel_nexus_url`}}",
+      "output_directory": "{{user `output_directory`}}/output-vmware-iso-rhel",
+      "vm_name": "RHEL-{{ user `os_version`}}",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 102400,
+      "disk_type_id": 0,
+      "guest_os_type": "rhel7-64",
+      "http_directory": "http",
+      "ssh_username": "{{ user `packer_ssh_username`}}",
+      "ssh_password": "{{ user `packer_ssh_username`}}",
+      "ssh_port": 22,
+      "version": 13,
+      "vnc_bind_address": "0.0.0.0",
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'labansible'|sudo -S sh 'shutdown.sh'",
+      "tools_upload_flavor": "",
+      "vmx_data": {
+        "memsize": "768",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1",
+        "RemoteDisplay.vnc.enabled": "false",
+        "RemoteDisplay.vnc.port": "5900",
+        "scsi0.virtualDev": "pvscsi",
+        "ethernet0.virtualDev": "vmxnet3"
+      }
+    },
+    {
+      "type": "vmware-iso",
+      "name": "CentOS",
+      "headless": "{{user `headless_setting`}}",
+      "iso_checksum": "{{ user `centos_iso_checksum`}}",
+      "iso_checksum_type": "{{ user `centos_iso_checksum_type`}}",
+      "iso_url": "{{ user `centos_nexus_url`}}",
+      "output_directory": "{{user `output_directory`}}/output-vmware-iso-centos",
+      "vm_name": "CentOS-{{ user `os_version`}}",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "disk_size": 102400,
+      "disk_type_id": 0,
+      "guest_os_type": "rhel7-64",
+      "http_directory": "http",
+      "ssh_username": "{{ user `packer_ssh_username`}}",
+      "ssh_password": "{{ user `packer_ssh_username`}}",
+      "ssh_port": 22,
+      "version": 13,
+      "vnc_bind_address": "0.0.0.0",
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'labansible'|sudo -S sh 'shutdown.sh'",
+      "tools_upload_flavor": "",
+      "vmx_data": {
+        "memsize": "768",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1",
+        "RemoteDisplay.vnc.enabled": "false",
+        "RemoteDisplay.vnc.port": "5900",
+        "scsi0.virtualDev": "pvscsi",
+        "ethernet0.virtualDev": "vmxnet3"
+      }
+    }
+  ],
+  "provisioners": [
+   {
+    "type": "file",
+    "source": "./files/",
+    "destination": "/tmp"
+   },
+   {
+      "type": "shell",
+      "scripts": [
+        "scripts/sethostname.sh",
+        "scripts/satellite_reg.sh",
+        "scripts/install_ansible.sh",
+        "scripts/build_version_file.sh"
+      ],
+      "execute_command": "echo 'labansible'|sudo {{ .Vars }} -S bash '{{ .Path }}'",
+      "override": {
+        "CentOS": {
+          "environment_vars": [
+            "OS_VERSION={{user `os_version`}}",
+            "IMAGE_BUILD_VERSION={{user `image_build_version`}}",
+            "KATELLO_HOSTNAME={{user `satellite_server_fqdn`}}",
+            "SATELLITE_ORG={{user `satellite_org`}}",
+            "SATELLITE_ACTIVATIONKEY={{user `satellite_activation_key_centos`}}"
+          ]
+        },
+        "RHEL": {
+          "environment_vars": [
+            "OS_VERSION={{user `os_version`}}",
+            "IMAGE_BUILD_VERSION={{user `image_build_version`}}",
+            "KATELLO_HOSTNAME={{user `satellite_server_fqdn`}}",
+            "SATELLITE_ORG={{user `satellite_org`}}",
+            "SATELLITE_ACTIVATIONKEY={{user `satellite_activation_key_rhel`}}"
+          ]
+        }
+      }
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "ansible/configure_template.yml",
+      "role_paths": [
+        "ansible/roles/add_sentania_certs",
+        "ansible/roles/install_packages",
+        "ansible/roles/cleanup",
+        "ansible/roles/configure_chrony",
+        "ansible/roles/configure_local_accounts",
+        "ansible/roles/install-labansiblekey"
+      ]
+    }
+  ]
+}
