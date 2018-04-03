@@ -22,8 +22,8 @@ Write-Host "user: $vSphereUSERNAME"
 
 #Upload to Lab vCenter
 $vCenterServerList = "vcenter.int.sentania.net"
-$datastore = "ntx-iso"
-$targetCluster = "ntnxlab"
+$datastore = "pithos-admin"
+$targetCluster = "Storage"
 
 
 $builtImages = Get-ChildItem $Outputdir -Filter *.ova -Recurse
