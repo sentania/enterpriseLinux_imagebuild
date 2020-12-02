@@ -2,32 +2,53 @@
   "variables": {
     "os_version": "NOTSET",
     "headless_setting": "true",
-    "image_build_version": "NOTSET",
-    "satellite_server_fqdn": "NOTSET",
-    "satellite_org":"NOTSET",
-    "satellite_activation_key_centos":"NOTSET",
-    "satellite_activation_key_rhel":"NOTSET",
+    "image_build_version": "{{env `GIT_COMMIT `}}",
     "packer_ssh_username":"NOTSET",
     "packer_ssh_password":"NOTSET",
-    "rhel_iso":"",
-    "rhel_iso_checksum":"none",
-    "rhel_iso_checksum_type":"sha256",
     "centos_iso":"",
     "centos_iso_checksum":"none",
-    "centos_iso_checksum_type":"sha256",
-    "output_directory": "{{env `IMAGE_OUTPUT_DIR`}}"
+    "centos_iso_checksum_type":"sha256"
   },
 
   "builders": [
     {
-      "type": "vmware-iso",
-      "name": "RHEL",
-      "headless": "{{user `headless_setting`}}",
-      "iso_checksum": "{{ user `rhel_iso_checksum`}}",
-      "iso_checksum_type": "{{ user `rhel_iso_checksum_type`}}",
-      "iso_url": "{{ user `rhel_nexus_url`}}",
-      "output_directory": "{{user `output_directory`}}/output-vmware-iso-rhel",
-      "vm_name": "RHEL-{{ user `os_version`}}",
+      "content_library_destination" : {
+        "library": "vcenter.int.sentania.net",
+        "ovf": true,
+        "name" : "centOS7-template"
+      },
+      "type": "vsphere-iso",
+      "name": "centOS7-template",
+      "vcenter_server":      "{{user `vcenter_server`}}",
+      "username":            "{{user `username`}}",
+      "password":            "{{user `password`}}",
+      "insecure_connection": "true",
+      "vm_name": "centOS7-template",
+      "datastore": "{{user `datastore`}}",
+      "folder": "{{user `folder`}}",
+      "cluster": "{{user `cluster`}}",
+      "boot_order": "disk,cdrom",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "CPUs":             1,
+      "RAM":              2048,
+      "RAM_reserve_all": false,
+      "disk_controller_type":  "pvscsi",
+      "storage": [
+        {
+          "disk_size": 71680,
+          "disk_thin_provisioned": true
+        }
+      ],
+      "network_adapters": [
+        {
+          "network": "{{user `network`}}",
+          "network_card": "vmxnet3"
+        }
+      ],
+      "iso_paths": [
+        "vcenter.int.sentania.net/cent7OS"
+      ],
       "boot_command": [
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
@@ -36,45 +57,9 @@
       "disk_type_id": 0,
       "guest_os_type": "rhel7-64",
       "http_directory": "http",
-      "ssh_username": "{{ user `packer_ssh_username`}}",
-      "ssh_password": "{{ user `packer_ssh_username`}}",
+
       "ssh_port": 22,
-      "version": 13,
-      "vnc_bind_address": "0.0.0.0",
-      "ssh_wait_timeout": "10000s",
-      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'labansible'|sudo -S sh 'shutdown.sh'",
-      "tools_upload_flavor": "",
-      "vmx_data": {
-        "memsize": "768",
-        "numvcpus": "1",
-        "cpuid.coresPerSocket": "1",
-        "RemoteDisplay.vnc.enabled": "false",
-        "RemoteDisplay.vnc.port": "5900",
-        "scsi0.virtualDev": "pvscsi",
-        "ethernet0.virtualDev": "vmxnet3"
-      }
-    },
-    {
-      "type": "vmware-iso",
-      "name": "CentOS",
-      "headless": "{{user `headless_setting`}}",
-      "iso_checksum": "{{ user `centos_iso_checksum`}}",
-      "iso_checksum_type": "{{ user `centos_iso_checksum_type`}}",
-      "iso_url": "{{ user `centos_nexus_url`}}",
-      "output_directory": "{{user `output_directory`}}/output-vmware-iso-centos",
-      "vm_name": "CentOS-{{ user `os_version`}}",
-      "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
-      ],
-      "boot_wait": "10s",
-      "disk_size": 102400,
-      "disk_type_id": 0,
-      "guest_os_type": "rhel7-64",
-      "http_directory": "http",
-      "ssh_username": "{{ user `packer_ssh_username`}}",
-      "ssh_password": "{{ user `packer_ssh_username`}}",
-      "ssh_port": 22,
-      "version": 13,
+      "version": 15,
       "vnc_bind_address": "0.0.0.0",
       "ssh_wait_timeout": "10000s",
       "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'labansible'|sudo -S sh 'shutdown.sh'",
@@ -106,22 +91,10 @@
       ],
       "execute_command": "echo 'labansible'|sudo {{ .Vars }} -S bash '{{ .Path }}'",
       "override": {
-        "CentOS": {
+        "centOS7-template": {
           "environment_vars": [
             "OS_VERSION={{user `os_version`}}",
-            "IMAGE_BUILD_VERSION={{user `image_build_version`}}",
-            "KATELLO_HOSTNAME={{user `satellite_server_fqdn`}}",
-            "SATELLITE_ORG={{user `satellite_org`}}",
-            "SATELLITE_ACTIVATIONKEY={{user `satellite_activation_key_centos`}}"
-          ]
-        },
-        "RHEL": {
-          "environment_vars": [
-            "OS_VERSION={{user `os_version`}}",
-            "IMAGE_BUILD_VERSION={{user `image_build_version`}}",
-            "KATELLO_HOSTNAME={{user `satellite_server_fqdn`}}",
-            "SATELLITE_ORG={{user `satellite_org`}}",
-            "SATELLITE_ACTIVATIONKEY={{user `satellite_activation_key_rhel`}}"
+            "IMAGE_BUILD_VERSION={{user `image_build_version`}}"
           ]
         }
       }
