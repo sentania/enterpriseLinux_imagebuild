@@ -47,7 +47,7 @@
         }
       ],
       "iso_paths": [
-        "vcenter.int.sentania.net/cent7OS"
+        "vcenter.int.sentania.net/centOS7"
       ],
       "boot_command": [
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
