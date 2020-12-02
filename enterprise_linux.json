@@ -53,7 +53,7 @@
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
-      "guest_os_type": "rhel7-64",
+      "guest_os_type": "centos7_64Guest",
       "http_directory": "http",
 
       "ssh_port": 22,
