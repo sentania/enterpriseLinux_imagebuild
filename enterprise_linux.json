@@ -53,13 +53,11 @@
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
-      "disk_type_id": 0,
       "guest_os_type": "rhel7-64",
       "http_directory": "http",
 
       "ssh_port": 22,
       "version": 15,
-      "vnc_bind_address": "0.0.0.0",
       "ssh_wait_timeout": "10000s",
       "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'labansible'|sudo -S sh 'shutdown.sh"
     }
