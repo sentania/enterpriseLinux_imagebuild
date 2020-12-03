@@ -47,7 +47,7 @@
         }
       ],
       "iso_paths": [
-        "vcenter.int.sentania.net/centOS7"
+        "vcenter.int.sentania.net/centOS7/CentOS-7-x86_64-Everything-1708_640ca921-b1bb-45a7-b61a-6e99f54b30d9.iso"
       ],
       "boot_command": [
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
