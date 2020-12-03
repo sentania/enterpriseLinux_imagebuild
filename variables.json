@@ -1,8 +1,8 @@
 {
     "vcenter_server":"vcenter.int.sentania.net",
-    "datastore":"pithos-vm",
+    "datastore":"vsanDatastore",
     "folder": "Templates",
-    "cluster": "Cluster 2",
+    "cluster": "Cluster 1",
     "network": "VLAN1100 10.100.100.0_24",
     "ssh_username": "labansible",
     "ssh_password": "VMware1!"
