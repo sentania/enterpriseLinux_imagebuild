@@ -54,8 +54,7 @@
       "http_port_min": "8800",
       "http_port_max": "8900",
       "ssh_port": 22,
-      "ssh_wait_timeout": "10000s",
-      "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'labansible'|sudo -S sh 'shutdown.sh"
+      "ssh_wait_timeout": "10000s"
     }
   ],
   "provisioners": [

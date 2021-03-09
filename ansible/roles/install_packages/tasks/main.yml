@@ -4,8 +4,8 @@
 
 
 - name: Ensure necessary packages are installed.
-  yum: name={{ item }} state=installed
-  with_items:
+  yum: 
+    name:
     - haveged #better random number generator
     - bash-completion #convenience
     - sssd #Begin AD Authentication
@@ -20,6 +20,7 @@
     - policycoreutils-python #END AD Authentication
     - open-vm-tools #DUH
     - pwgen
+  state: latest
 
 - name: Ensure services are enabled on boot
   service: name={{ item }} enabled=yes
