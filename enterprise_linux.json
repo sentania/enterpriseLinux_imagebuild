@@ -3,8 +3,6 @@
     "os_version": "NOTSET",
     "headless_setting": "true",
     "image_build_version": "{{env `GIT_COMMIT `}}",
-    "centos_iso":"",
-    "centos_iso_checksum":"none",
     "centos_iso_checksum_type":"sha256"
   },
 
@@ -13,15 +11,15 @@
       "content_library_destination" : {
         "library": "vcenter.int.sentania.net",
         "ovf": true,
-        "name" : "centOS7-template"
+        "name" : "centos7-template"
       },
       "type": "vsphere-iso",
-      "name": "centOS7-template",
+      "name": "centos7-template",
       "vcenter_server":      "{{user `vcenter_server`}}",
       "username":            "{{user `username`}}",
       "password":            "{{user `password`}}",
       "insecure_connection": "true",
-      "vm_name": "centOS7-template",
+      "vm_name": "centos7-template",
       "datastore": "{{user `datastore`}}",
       "folder": "{{user `folder`}}",
       "cluster": "{{user `cluster`}}",
