@@ -20,7 +20,7 @@
       - policycoreutils-python #END AD Authentication
       - open-vm-tools #DUH
       - pwgen
-  state: latest
+    state: latest
 
 - name: Ensure services are enabled on boot
   service: name={{ item }} enabled=yes
