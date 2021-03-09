@@ -34,9 +34,6 @@
     - /root/.ssh/
     - /home/*/.ssh/
 
-- name: Remove the system from the satellite server
-  redhat_subscription: state=absent
-
 - name: Remove the Katello facts file from the server
   file:
     path: /etc/rhsm/facts/katello.facts
