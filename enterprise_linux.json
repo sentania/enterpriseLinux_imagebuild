@@ -73,7 +73,7 @@
       ],
       "execute_command": "echo 'labansible'|sudo {{ .Vars }} -S bash '{{ .Path }}'",
       "override": {
-        "centOS7-template": {
+        "centos7-template": {
           "environment_vars": [
             "OS_VERSION={{user `os_version`}}",
             "IMAGE_BUILD_VERSION={{user `image_build_version`}}"
