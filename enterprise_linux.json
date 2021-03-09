@@ -3,8 +3,6 @@
     "os_version": "NOTSET",
     "headless_setting": "true",
     "image_build_version": "{{env `GIT_COMMIT `}}",
-    "packer_ssh_username":"NOTSET",
-    "packer_ssh_password":"NOTSET",
     "centos_iso":"",
     "centos_iso_checksum":"none",
     "centos_iso_checksum_type":"sha256"
@@ -72,7 +70,6 @@
       "type": "shell",
       "scripts": [
         "scripts/sethostname.sh",
-        "scripts/satellite_reg.sh",
         "scripts/install_ansible.sh",
         "scripts/build_version_file.sh"
       ],

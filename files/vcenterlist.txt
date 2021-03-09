@@ -1,1 +1,2 @@
 lab-comp01-vcenter.int.sentania.net
+lab-comp02-vcenter.int.sentania.net
