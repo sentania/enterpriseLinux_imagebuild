@@ -16,5 +16,3 @@ $contentlibrarysubscribedService.sync($libraryID)
 
 Disconnect-CisServer -Server $cisServerConnection -Confirm:$false
 }
-
-$vCenterlist = get-content inputs/vcenterlist.txt
