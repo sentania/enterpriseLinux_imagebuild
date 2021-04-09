@@ -19,14 +19,6 @@
 - name: Clean up Yum
   shell: yum clean all
 
-- name: Remove repositories
-  shell: "yum-config-manager --disable {{ item }}"
-  with_items:
-    - b*
-    - e*
-    - u*
-    - K*
-
 - name: Clean the yum cache, dhclient and iptables directories
   file: path=/var/cache/yum/* force=yes state=absent
   with_items:

@@ -2,7 +2,7 @@
   [string]$vSphereUSERNAME,
   [string]$vSpherePASSWORD
 )
-
+Set-PowerCLIConfiguration -InvalidCertificateAction Ignore
 $vCenterlist = get-content inputs/vcenterlist.txt
 
 foreach ($vcenter in $vCenterlist)
@@ -16,3 +16,5 @@ $contentlibrarysubscribedService.sync($libraryID)
 
 Disconnect-CisServer -Server $cisServerConnection -Confirm:$false
 }
+
+
