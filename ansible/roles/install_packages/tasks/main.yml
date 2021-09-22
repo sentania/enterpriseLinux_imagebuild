@@ -20,6 +20,7 @@
       - policycoreutils-python #END AD Authentication
       - open-vm-tools #DUH
       - pwgen
+      - stress
     state: latest
 
 - name: Ensure services are enabled on boot
