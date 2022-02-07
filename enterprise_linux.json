@@ -55,6 +55,55 @@
       "http_port_max": "8900",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s"
+    },
+    {
+      "content_library_destination" : {
+        "library": "vcenter.int.sentania.net",
+        "ovf": true,
+        "name" : "centos8-template"
+      },
+      "type": "vsphere-iso",
+      "name": "centos8-template",
+      "vcenter_server":      "{{user `vcenter_server`}}",
+      "username":            "{{user `username`}}",
+      "password":            "{{user `password`}}",
+      "insecure_connection": "true",
+      "vm_name": "centos8-template",
+      "datastore": "{{user `datastore`}}",
+      "folder": "{{user `folder`}}",
+      "cluster": "{{user `cluster`}}",
+      "boot_order": "disk,cdrom",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "CPUs":             1,
+      "RAM":              2048,
+      "RAM_reserve_all": false,
+      "disk_controller_type":  "pvscsi",
+      "storage": [
+        {
+          "disk_size": 71680,
+          "disk_thin_provisioned": true
+        }
+      ],
+      "network_adapters": [
+        {
+          "network": "{{user `network`}}",
+          "network_card": "vmxnet3"
+        }
+      ],
+      "iso_paths": [
+        "http://mirror.stream.centos.org/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-20220202.0-x86_64-boot.iso"
+      ],
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "boot_wait": "10s",
+      "guest_os_type": "centos7_64Guest",
+      "http_directory": "http",
+      "http_port_min": "8800",
+      "http_port_max": "8900",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s"
     }
   ],
   "provisioners": [
