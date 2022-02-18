@@ -1,6 +1,6 @@
 {
   "variables": {
-    "os_version": "NOTSET",
+    "os_version": "NOTSET", 
     "headless_setting": "true",
     "image_build_version": "{{env `GIT_COMMIT `}}",
     "centos_iso_checksum_type":"sha256"
@@ -92,7 +92,7 @@
         }
       ],
       "iso_paths": [
-        "http://mirror.stream.centos.org/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-20220202.0-x86_64-boot.iso"
+        "vcenter.int.sentania.net/centOS8/CentOS-Stream-8-x86_64-20220211-boot.iso"
       ],
       "boot_command": [
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
