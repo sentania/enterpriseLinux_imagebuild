@@ -8,8 +8,8 @@ deleteDir()
          checkout scm
        }
       stage ('Download Packer') {
-        sh 'wget https://releases.hashicorp.com/packer/1.7.0/packer_1.7.0_linux_amd64.zip'
-        sh 'unzip packer_1.7.0_linux_amd64.zip'
+        sh 'wget https://releases.hashicorp.com/packer/1.7.10/packer_1.7.10_linux_amd64.zip'
+        sh 'unzip packer_1.7.10_linux_amd64.zip'
       }
         withCredentials([usernamePassword(credentialsId: 'vcenter_admin',
         usernameVariable: 'vCenterUsername', passwordVariable: 'vCenterPassword')]){

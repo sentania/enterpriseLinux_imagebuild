@@ -46,7 +46,7 @@
         "vcenter.int.sentania.net/centOS7/CentOS-7-x86_64-Everything-1708.iso"
       ],
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos7.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
       "guest_os_type": "centos7_64Guest",
@@ -95,7 +95,7 @@
         "vcenter.int.sentania.net/centOS8/CentOS-Stream-8-x86_64-20220211-boot.iso"
       ],
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos8.cfg<enter><wait>"
       ],
       "boot_wait": "10s",
       "guest_os_type": "centos7_64Guest",
