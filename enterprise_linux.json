@@ -43,7 +43,7 @@
         }
       ],
       "iso_paths": [
-        "vcenter.int.sentania.net/centOS7/CentOS-7-x86_64-Everything-1708.iso"
+        "vcenter.int.sentania.net/centOS7/CentOS-7-x86_64-Everything-2009.iso"
       ],
       "boot_command": [
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos7.cfg<enter><wait>"
