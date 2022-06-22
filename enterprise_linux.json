@@ -70,7 +70,7 @@
         "scripts/install_ansible.sh",
         "scripts/build_version_file.sh"
       ],
-      "execute_command": "echo 'labansible'|sudo {{ .Vars }} -S bash '{{ .Path }}'",
+      "execute_command": "echo 'labuser'|sudo {{ .Vars }} -S bash '{{ .Path }}'",
       "override": {
         "centos7-template": {
           "environment_vars": [

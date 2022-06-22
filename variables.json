@@ -4,6 +4,6 @@
     "folder": "Templates",
     "cluster": "Cluster 1",
     "network": "VLAN1100 10.100.100.0_24",
-    "ssh_username": "labansible",
+    "ssh_username": "labuser",
     "ssh_password": "VMware1!"
 }
