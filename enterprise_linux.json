@@ -89,7 +89,7 @@
         "ansible/roles/cleanup",
         "ansible/roles/configure_chrony",
         "ansible/roles/configure_local_accounts",
-        "ansible/roles/install-labansiblekey"
+        "ansible/roles/install-labuserkey"
       ]
     }
   ]
