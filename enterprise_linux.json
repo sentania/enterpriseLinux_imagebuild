@@ -11,7 +11,7 @@
       "content_library_destination" : {
         "library": "vcenter.int.sentania.net",
         "ovf": true,
-        "name" : "centos7-template"
+        "name" : "{{user `template_name`}}"
       },
       "type": "vsphere-iso",
       "name": "centos7-template",
@@ -19,7 +19,7 @@
       "username":            "{{user `username`}}",
       "password":            "{{user `password`}}",
       "insecure_connection": "true",
-      "vm_name": "centos7-template",
+      "vm_name": "{{user `template_name`}}",
       "datastore": "{{user `datastore`}}",
       "folder": "{{user `folder`}}",
       "cluster": "{{user `cluster`}}",
