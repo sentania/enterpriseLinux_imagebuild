@@ -1,8 +1,8 @@
 {
     "vcenter_server":"vcenter.int.sentania.net",
-    "datastore":"vsanDatastore",
+    "datastore":"Synology",
     "folder": "Templates",
-    "cluster": "Cluster 1",
+    "cluster": "nucCluster",
     "network": "VLAN1100 10.100.100.0_24",
     "ssh_username": "labuser",
     "ssh_password": "VMware1!"
